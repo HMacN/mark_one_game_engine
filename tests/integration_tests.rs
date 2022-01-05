@@ -1,7 +1,5 @@
 extern crate materiel;
 
-#[test]
-fn test_main()
-{
+mod isometric_game_grid_tests;
+mod game_objects_list_tests;
 
-}
