@@ -5,6 +5,7 @@ use materiel::isometric_game_grid::IsoGameGrid;
 
 fn main()
 {
+
     App::build()
         .add_plugins(DefaultPlugins)
         .insert_resource(IsoGameGrid::instantiate_new(64, 128, 100, 100))
@@ -35,4 +36,3 @@ fn add_terrain(mut commands: Commands, asset_server: Res<AssetServer>, grid: Res
         }
     }
 }
-
