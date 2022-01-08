@@ -33,18 +33,18 @@ impl IsoGameGrid
         return self.cell_width_in_pixels;
     }
 
-    pub fn get_pixel_x_coordinate(&self, grid_x: i32, grid_y: i32) -> i32
+    pub fn get_pixel_x_coordinate(&self, grid_x: i32, grid_y: i32) -> f32
     {
         let half_cell_width: i32 = self.cell_width_in_pixels / 2;
 
-        return (grid_x - grid_y) * half_cell_width;
+        return ((grid_x - grid_y) * half_cell_width) as f32;
     }
 
-    pub fn get_pixel_y_coordinate(&self, grid_x: i32, grid_y: i32) -> i32
+    pub fn get_pixel_y_coordinate(&self, grid_x: i32, grid_y: i32) -> f32
     {
         let half_cell_height: i32 = self.cell_height_in_pixels / 2;
 
-        return (grid_x + grid_y) * half_cell_height;
+        return ((grid_x + grid_y) * half_cell_height) as f32;
     }
 
     pub fn get_grid_x_coordinate(&self, pixel_x: i32, pixel_y: i32) -> i32
