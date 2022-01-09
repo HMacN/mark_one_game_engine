@@ -62,5 +62,50 @@ impl IsoGameGrid
 
         return ((pixel_y / half_cell_height) - (pixel_x / half_cell_width)) / 2;
     }
+
+    pub fn are_coordinates_legal(&self, grid_x: i32, grid_y: i32) -> bool
+    {
+        if grid_x < 0 || grid_x > self.number_of_columns
+        {
+            return false;
+        }
+
+        if grid_y < 0 || grid_y > self.number_of_rows
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    pub fn find_nearest_legal_x_coordinate(&self, grid_x: i32) -> i32
+    {
+        if grid_x > self.number_of_columns
+        {
+            return self.number_of_columns;
+        }
+
+        if grid_x < 0
+        {
+            return 0;
+        }
+
+        return grid_x;
+    }
+
+    pub fn find_nearest_legal_y_coordinate(&self, grid_y: i32) -> i32
+    {
+        if grid_y > self.number_of_rows
+        {
+            return self.number_of_rows;
+        }
+
+        if grid_y < 0
+        {
+            return 0;
+        }
+
+        return grid_y;
+    }
 }
 
