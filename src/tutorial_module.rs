@@ -1,4 +1,4 @@
-use bevy::app::{AppBuilder, Plugin};
+use bevy::app::{App, Plugin};
 use bevy::ecs::system::IntoSystem;
 use bevy::prelude::*;
 
@@ -6,7 +6,7 @@ pub struct HelloPlugin;
 
 impl Plugin for HelloPlugin
 {
-    fn build(&self, app: &mut AppBuilder)
+    fn build(&self, app: &mut App)
     {
         app
             .insert_resource(GreetTimer(Timer::from_seconds(2.0, true)))
@@ -41,8 +41,10 @@ fn greet_people(time: Res<Time>, mut timer: ResMut<GreetTimer>, query: Query<&Na
     }
 }
 
+#[derive(Component)]
 struct Person;
 
+#[derive(Component)]
 struct Name(String);
 
 struct GreetTimer(Timer);
