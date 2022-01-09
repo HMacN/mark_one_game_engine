@@ -1,3 +1,4 @@
+#[derive(Clone, Copy)]
 pub struct IsoGameGrid
 {
     cell_height_in_pixels: i32,
@@ -108,4 +109,3 @@ impl IsoGameGrid
         return grid_y;
     }
 }
-
