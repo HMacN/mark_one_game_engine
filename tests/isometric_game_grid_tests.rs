@@ -8,7 +8,7 @@ fn sets_up_correct_number_of_rows()
     let num_rows: i32 = 15;
     let test_grid = IsoGameGrid::instantiate_new(10, 20, num_rows, 10);
 
-    assert_eq!(test_grid.get_number_of_rows(), num_rows);
+    assert_eq!(test_grid.get_max_y_coordinate(), num_rows);
 }
 
 #[test]
@@ -17,7 +17,7 @@ fn sets_up_correct_number_of_columns()
     let num_cols: i32 = 15;
     let test_grid = IsoGameGrid::instantiate_new(10, 20, 10, num_cols);
 
-    assert_eq!(test_grid.get_number_of_columns(), num_cols)
+    assert_eq!(test_grid.get_max_x_coordinate(), num_cols)
 }
 
 #[test]
