@@ -2,7 +2,7 @@ mod tutorial_module;
 
 use bevy::prelude::*;
 use materiel::isometric_game_grid::IsoGameGrid;
-use materiel::terrain_tiles::*;
+use materiel::sprite_bundle_factory::*;
 
 fn main()
 {
@@ -27,7 +27,7 @@ fn add_terrain(mut commands: Commands, asset_server: Res<AssetServer>, grid: Res
         let mut y = 0;
         while y <= grid.get_max_y_coordinate()
         {
-            commands.spawn_bundle(TerrainTileBundle::instantiate_new(TerrainTypes::Water, x, y, &asset_server, &grid));
+            commands.spawn_bundle(make_new_sprite_bundle(AvailableSprites::Hills, x, y, &grid, &asset_server));
 
             y = y + 1;
         }
