@@ -1,3 +1,5 @@
+use bevy::prelude::Transform;
+
 #[derive(Clone, Copy)]
 pub struct IsoGameGrid
 {
@@ -107,5 +109,10 @@ impl IsoGameGrid
         }
 
         return grid_y;
+    }
+
+    pub fn get_transform_from_grid_coords(&self, grid_x: i32, grid_y: i32) -> Transform
+    {
+        return Transform::from_xyz(self.get_pixel_x_coordinate(grid_x, grid_y), self.get_pixel_y_coordinate(grid_x, grid_y), 0.0)
     }
 }

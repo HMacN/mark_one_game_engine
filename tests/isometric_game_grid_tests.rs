@@ -1,5 +1,6 @@
 extern crate materiel;
 
+use bevy::prelude::Transform;
 use materiel::isometric_game_grid::IsoGameGrid;
 
 #[test]
@@ -105,4 +106,13 @@ fn provides_nearest_legal_y_coordinate()
     assert_eq!(test_grid.find_nearest_legal_y_coordinate(12), 11);
     assert_eq!(test_grid.find_nearest_legal_y_coordinate(-1), 0);
     assert_eq!(test_grid.find_nearest_legal_y_coordinate(0), 0);
+}
+
+#[test]
+fn returns_transform_from_coords()
+{
+    let test_grid = IsoGameGrid::instantiate_new(10, 20, 11, 10);
+    let target_transform = Transform::from_xyz(10.0, 45.0, 0.0);
+
+    assert_eq!(test_grid.get_transform_from_grid_coords(5, 4), target_transform);
 }

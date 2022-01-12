@@ -27,10 +27,7 @@ impl InGameLocation
 
     pub fn find_transform(&self, game_grid: IsoGameGrid) -> Transform
     {
-        return Transform::from_xyz(
-            game_grid.get_pixel_x_coordinate(self.x_coord, self.y_coord),
-            game_grid.get_pixel_y_coordinate(self.x_coord, self.y_coord),
-            0.0)
+        return game_grid.get_transform_from_grid_coords(self.x_coord, self.y_coord);
     }
 
     pub fn check_if_legal(&self, game_grid: IsoGameGrid) -> bool
