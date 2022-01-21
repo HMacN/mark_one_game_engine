@@ -1,4 +1,4 @@
-use crate::prototype_sprite_bundle_factory::AvailableSprites;
+use crate::sprite_bundle_manager::AvailableSprites;
 
 pub struct SpriteBundleTable
 {

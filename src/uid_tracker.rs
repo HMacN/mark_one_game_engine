@@ -9,7 +9,7 @@ impl UIDTracker
 {
     pub fn instantiate_new() -> UIDTracker
     {
-        return UIDTracker { lowest_free_uid: 0 }
+        return UIDTracker { lowest_free_uid: 1 }
     }
 
     pub fn instantiate_new_from_starting_int(starting_int: u16) -> UIDTracker

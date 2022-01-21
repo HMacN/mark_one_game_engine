@@ -4,6 +4,7 @@ use bevy::prelude::*;
 use materiel::isometric_game_grid::IsoGameGrid;
 use materiel::prototype_sprite_bundle_factory::*;
 use materiel::prototype_sprite_bundle_table::SpriteBundleTable;
+use materiel::sprite_bundle_manager::AvailableSprites;
 
 fn main()
 {

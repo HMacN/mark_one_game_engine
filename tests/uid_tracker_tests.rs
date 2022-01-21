@@ -5,7 +5,7 @@ fn can_request_a_uid()
 {
     let mut tracker = UIDTracker::instantiate_new();
 
-    assert_eq!(tracker.request_new_uid(), 0);
+    assert_eq!(tracker.request_new_uid(), 1);
 }
 
 #[test]
@@ -18,7 +18,7 @@ fn can_track_large_number_of_uid_s()
         tracker.request_new_uid();
     }
 
-    assert_eq!(tracker.request_new_uid(), 500);
+    assert_eq!(tracker.request_new_uid(), 501);
 }
 
 #[test]
