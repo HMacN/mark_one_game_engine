@@ -4,18 +4,21 @@ use materiel::sprite_bundle_manager::{AvailableSprites, SpriteBundleManager};
 fn retrieve_details_of_sprite_after_one_sprite_added()
 {
     let mut manager = SpriteBundleManager::instantiate_new();
-    let target_tuple: (AvailableSprites, f32, f32) = (AvailableSprites::Water, 100.0, 100.0);
 
     manager.add_sprite_bundle(AvailableSprites::Water, 100.0, 100.0, 1);
 
-    assert_eq!(manager.get_details_by_uid(1), target_tuple);
+    let entry = manager.get_details_by_uid(1);
+
+    assert_eq!(entry.get_sprite(), AvailableSprites::Water);
+    assert_eq!(entry.get_x_coord(), 100.0);
+    assert_eq!(entry.get_y_coord(), 100.0);
+    assert_eq!(entry.get_uid(), 1);
 }
 
 #[test]
 fn retrieve_details_of_sprite_after_multiple_sprites_added()
 {
     let mut manager = SpriteBundleManager::instantiate_new();
-    let target_tuple: (AvailableSprites, f32, f32) = (AvailableSprites::Water, 100.0, 100.0);
 
     manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
     manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 2);
@@ -24,7 +27,12 @@ fn retrieve_details_of_sprite_after_multiple_sprites_added()
     manager.add_sprite_bundle(AvailableSprites::Water, 100.0, 100.0, 5);
     manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 6);
 
-    assert_eq!(manager.get_details_by_uid(5), target_tuple);
+    let entry = manager.get_details_by_uid(5);
+
+    assert_eq!(entry.get_sprite(), AvailableSprites::Water);
+    assert_eq!(entry.get_x_coord(), 100.0);
+    assert_eq!(entry.get_y_coord(), 100.0);
+    assert_eq!(entry.get_uid(), 5);
 }
 
 #[test]
@@ -49,9 +57,61 @@ fn return_true_if_adding_a_uid_not_already_in_use()
 fn return_default_values_if_an_invalid_uid_is_provided()
 {
     let mut manager = SpriteBundleManager::instantiate_new();
-    let target_tuple: (AvailableSprites, f32, f32) = (AvailableSprites::ImageNotFound, 0.0, 0.0);
 
     manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
 
-    assert_eq!(manager.get_details_by_uid(2), target_tuple);
+    let entry = manager.get_details_by_uid(2);
+
+    assert_eq!(entry.get_sprite(), AvailableSprites::ImageNotFound);
+    assert_eq!(entry.get_x_coord(), 0.0);
+    assert_eq!(entry.get_y_coord(), 0.0);
+    assert_eq!(entry.get_uid(), 0);
 }
+
+#[test]
+fn can_update_values_of_a_given_entry()
+{
+    let mut manager = SpriteBundleManager::instantiate_new();
+    let target_tuple: (AvailableSprites, f32, f32) = (AvailableSprites::Water, 100.0, 100.0);
+
+    manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
+
+    manager.update_details(1, AvailableSprites::Water, 100.0, 100.0);
+
+    let entry = manager.get_details_by_uid(1);
+
+    assert_eq!(entry.get_sprite(), AvailableSprites::Water);
+    assert_eq!(entry.get_x_coord(), 100.0);
+    assert_eq!(entry.get_y_coord(), 100.0);
+    assert_eq!(entry.get_uid(), 1);
+}
+
+#[test]
+fn update_details_returns_true_when_successful()
+{
+    let mut manager = SpriteBundleManager::instantiate_new();
+
+    manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
+
+    assert_eq!(manager.update_details(1, AvailableSprites::Water, 100.0, 100.0), true);
+}
+
+#[test]
+fn update_details_returns_false_when_unsuccessful()
+{
+    let mut manager = SpriteBundleManager::instantiate_new();
+
+    manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
+
+    assert_eq!(manager.update_details(2, AvailableSprites::Water, 100.0, 100.0), false);
+}
+
+/*#[test]
+fn new_entries_are_listed_as_not_spawned()
+{
+    let mut manager = SpriteBundleManager::instantiate_new();
+
+    manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
+
+    assert_eq!(manager.get_details_by_uid(1), (AvailableSprites::Grass, 50.0, 50.0, false));
+}*/

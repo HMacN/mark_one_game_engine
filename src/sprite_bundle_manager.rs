@@ -10,6 +10,48 @@ pub struct SpriteBundleManager
     next_free_index: usize,
 }
 
+pub struct SpriteBundleManagerEntry
+{
+    sprite: AvailableSprites,
+    x_coord: f32,
+    y_coord: f32,
+    uid: u16,
+}
+
+impl SpriteBundleManagerEntry
+{
+    pub fn get_sprite(&self) -> AvailableSprites
+    {
+        return self.sprite;
+    }
+
+    pub fn get_x_coord(&self) -> f32
+    {
+        return self.x_coord;
+    }
+
+    pub fn get_y_coord(&self) -> f32
+    {
+        return self.y_coord;
+    }
+
+    pub fn get_uid(&self) -> u16
+    {
+        return self.uid;
+    }
+
+    fn default() -> SpriteBundleManagerEntry
+    {
+        return SpriteBundleManagerEntry
+        {
+            sprite: AvailableSprites::ImageNotFound,
+            x_coord: 0.0,
+            y_coord: 0.0,
+            uid: 0
+        };
+    }
+}
+
 impl SpriteBundleManager
 {
     pub fn instantiate_new() -> SpriteBundleManager
@@ -41,16 +83,16 @@ impl SpriteBundleManager
         return true;
     }
     
-    pub fn get_details_by_uid(&self, uid: u16) -> (AvailableSprites, f32, f32)
+    pub fn get_details_by_uid(&self, uid: u16) -> SpriteBundleManagerEntry
     {
         let index_search_results = self.find_array_index_by_uid(uid);
 
         if index_search_results.1 == false
         {
-            return (AvailableSprites::ImageNotFound, 0.0, 0.0);
+            return SpriteBundleManagerEntry::default();
         }
 
-        return (self.sprite[index_search_results.0], self.x_coord[index_search_results.0], self.y_coord[index_search_results.0]);
+        return self.generate_struct_containing_data_entry(index_search_results.0);
     }
 
     fn find_array_index_by_uid(&self, given_uid: u16) -> (usize, bool)
@@ -64,6 +106,33 @@ impl SpriteBundleManager
         }
 
         return (0, false);
+    }
+
+    pub fn update_details(&mut self, given_uid: u16, new_sprite: AvailableSprites, new_x_coord: f32, new_y_coord: f32) -> bool
+    {
+        let index_search_results = self.find_array_index_by_uid(given_uid);
+
+        if index_search_results.1 == false
+        {
+            return false;
+        }
+
+        self.sprite[index_search_results.0] = new_sprite;
+        self.x_coord[index_search_results.0] = new_x_coord;
+        self.y_coord[index_search_results.0] = new_y_coord;
+
+        return true;
+    }
+
+    fn generate_struct_containing_data_entry(&self, index: usize) -> SpriteBundleManagerEntry
+    {
+        return SpriteBundleManagerEntry
+        {
+            sprite: self.sprite[index],
+            x_coord: self.x_coord[index],
+            y_coord: self.y_coord[index],
+            uid: self.uid[index],
+        };
     }
 }
 
