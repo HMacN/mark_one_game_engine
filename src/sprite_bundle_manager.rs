@@ -6,6 +6,7 @@ pub struct SpriteBundleManager
     x_coord: [f32; 1000],
     y_coord: [f32; 1000],
     uid: [u16; 1000],
+    is_entry_spawned: [bool; 1000],
 
     next_free_index: usize,
 }
@@ -61,6 +62,7 @@ impl SpriteBundleManager
             x_coord: [0.0; 1000],
             y_coord: [0.0; 1000],
             uid: [0; 1000],
+            is_entry_spawned: [true; 1000],
 
             next_free_index: 0,
         };
@@ -77,6 +79,7 @@ impl SpriteBundleManager
         self.x_coord[self.next_free_index] = screen_x_coord;
         self.y_coord[self.next_free_index] = screen_y_coord;
         self.uid[self.next_free_index] = given_uid;
+        self.is_entry_spawned[self.next_free_index] = false;
 
         self.next_free_index = self.next_free_index + 1;
 
@@ -133,6 +136,41 @@ impl SpriteBundleManager
             y_coord: self.y_coord[index],
             uid: self.uid[index],
         };
+    }
+
+    pub fn find_next_entry_to_spawn(&self) -> (SpriteBundleManagerEntry, bool)
+    {
+        let are_all_entries_spawned = self.are_all_entries_spawned();
+
+        if are_all_entries_spawned == true
+        {
+            return (SpriteBundleManagerEntry::default(), false);
+        }
+
+        return (self.generate_struct_containing_data_entry(self.get_index_of_next_entry_to_spawn()), true);
+    }
+
+    fn get_index_of_next_entry_to_spawn(&self) -> usize
+    {
+        for _i in 0..1000
+        {
+            if self.is_entry_spawned[_i] == false
+            {
+                return _i;
+            }
+        }
+
+        return 0;
+    }
+
+    fn are_all_entries_spawned(&self) -> bool
+    {
+        if self.is_entry_spawned.contains(&false)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
 

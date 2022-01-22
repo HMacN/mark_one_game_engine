@@ -1,3 +1,4 @@
+use std::mem::transmute;
 use materiel::sprite_bundle_manager::{AvailableSprites, SpriteBundleManager};
 
 #[test]
@@ -106,12 +107,29 @@ fn update_details_returns_false_when_unsuccessful()
     assert_eq!(manager.update_details(2, AvailableSprites::Water, 100.0, 100.0), false);
 }
 
-/*#[test]
-fn new_entries_are_listed_as_not_spawned()
+#[test]
+fn find_if_any_entry_not_listed_as_spawned()
 {
     let mut manager = SpriteBundleManager::instantiate_new();
 
     manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
+    manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 2);
 
-    assert_eq!(manager.get_details_by_uid(1), (AvailableSprites::Grass, 50.0, 50.0, false));
-}*/
+    assert!(manager.find_next_entry_to_spawn().1);
+}
+
+#[test]
+fn get_next_entry_to_be_spawned()
+{
+    let mut manager = SpriteBundleManager::instantiate_new();
+
+    manager.add_sprite_bundle(AvailableSprites::Grass, 50.0, 50.0, 1);
+    manager.add_sprite_bundle(AvailableSprites::Water, 100.0, 100.0, 2);
+
+    let entry = manager.find_next_entry_to_spawn().0;
+
+    assert_eq!(entry.get_sprite(), AvailableSprites::Grass);
+    assert_eq!(entry.get_x_coord(), 50.0);
+    assert_eq!(entry.get_y_coord(), 50.0);
+    assert_eq!(entry.get_uid(), 1);
+}
