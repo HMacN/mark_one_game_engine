@@ -1,4 +1,4 @@
-use bevy::asset::AssetPath;
+use crate::sprite_bundle_spawner::AvailableSprites;
 
 pub struct SpriteBundleManager
 {
@@ -172,34 +172,14 @@ impl SpriteBundleManager
 
         return true;
     }
-}
 
+    pub fn mark_entry_as_spawned(&mut self, given_uid: u16)
+    {
+        let index_search_result = self.find_array_index_by_uid(given_uid);
 
-pub(crate) fn get_texture<'a>(sprite_to_get_path_for: AvailableSprites) -> AssetPath<'a>
-{
-    return if sprite_to_get_path_for == AvailableSprites::Water
-    {
-        AssetPath::from("Water.png")
+        if index_search_result.1
+        {
+            self.is_entry_spawned[self.find_array_index_by_uid(given_uid).0] = true;
+        }
     }
-    else if sprite_to_get_path_for == AvailableSprites::Grass
-    {
-        AssetPath::from("Grass.png")
-    }
-    else if sprite_to_get_path_for == AvailableSprites::Hills
-    {
-        AssetPath::from("Hills.png")
-    }
-    else
-    {
-        AssetPath::from("ImageNotFound.png")
-    }
-}
-
-#[derive(PartialEq, Copy, Clone, Debug)]
-pub enum AvailableSprites
-{
-    Water,
-    Grass,
-    Hills,
-    ImageNotFound,
 }
