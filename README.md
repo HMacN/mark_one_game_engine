@@ -1,1 +1,3 @@
 materiel
+
+An (as yet) unfinished strategy game written in the Rust programming language, using the Bevy (v0.5.0) game engine. This is very much being written as a learning exercise for the Rust language, the Bevy game engine, and for the technique of Test-Driven Development. Whether or not it ever becomes playable is another thing...
