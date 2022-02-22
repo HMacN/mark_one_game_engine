@@ -1,10 +1,10 @@
-use materiel::sprite_bundle_manager::{SpriteBundleManager};
+use materiel::sprite_tracker::{SpriteTracker};
 use materiel::sprite_bundle_spawner::AvailableSprites::*;
 
 #[test]
 fn retrieve_details_of_sprite_after_one_sprite_added()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Water, 100.0, 100.0, 1);
 
@@ -19,7 +19,7 @@ fn retrieve_details_of_sprite_after_one_sprite_added()
 #[test]
 fn retrieve_details_of_sprite_after_multiple_sprites_added()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 2);
@@ -39,7 +39,7 @@ fn retrieve_details_of_sprite_after_multiple_sprites_added()
 #[test]
 fn return_false_if_adding_a_uid_already_in_use()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
     assert_eq!(manager.add_sprite_bundle(Grass, 50.0, 50.0, 1), false);
@@ -48,7 +48,7 @@ fn return_false_if_adding_a_uid_already_in_use()
 #[test]
 fn return_true_if_adding_a_uid_not_already_in_use()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
     assert_eq!(manager.add_sprite_bundle(Grass, 50.0, 50.0, 2), true);
@@ -57,7 +57,7 @@ fn return_true_if_adding_a_uid_not_already_in_use()
 #[test]
 fn return_default_values_if_an_invalid_uid_is_provided()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
@@ -72,7 +72,7 @@ fn return_default_values_if_an_invalid_uid_is_provided()
 #[test]
 fn can_update_values_of_a_given_entry()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
@@ -89,7 +89,7 @@ fn can_update_values_of_a_given_entry()
 #[test]
 fn update_details_returns_true_when_successful()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
@@ -99,7 +99,7 @@ fn update_details_returns_true_when_successful()
 #[test]
 fn update_details_returns_false_when_unsuccessful()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
@@ -109,7 +109,7 @@ fn update_details_returns_false_when_unsuccessful()
 #[test]
 fn find_if_any_entry_not_listed_as_spawned()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 2);
@@ -120,7 +120,7 @@ fn find_if_any_entry_not_listed_as_spawned()
 #[test]
 fn get_next_entry_to_be_spawned()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
     manager.add_sprite_bundle(Water, 100.0, 100.0, 2);
@@ -136,7 +136,7 @@ fn get_next_entry_to_be_spawned()
 #[test]
 fn marking_an_entry_as_spawned_stops_it_coming_up_as_next_entry_to_be_spawned()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
     manager.add_sprite_bundle(Water, 100.0, 100.0, 2);
@@ -151,7 +151,7 @@ fn marking_an_entry_as_spawned_stops_it_coming_up_as_next_entry_to_be_spawned()
 #[test]
 fn handles_marking_an_invalid_entry_as_spawned()
 {
-    let mut manager = SpriteBundleManager::instantiate_new();
+    let mut manager = SpriteTracker::instantiate_new();
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
     manager.add_sprite_bundle(Water, 100.0, 100.0, 2);

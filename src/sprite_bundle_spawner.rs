@@ -2,6 +2,7 @@ use bevy::asset::{AssetPath, AssetServer};
 use bevy::prelude::{Res, Transform};
 use bevy::sprite::SpriteBundle;
 
+//Move to BevyBoundary
 pub fn make_new_sprite_bundle_at_transform (sprite_to_load: AvailableSprites, transform: Transform, asset_server: &Res<AssetServer>) -> SpriteBundle
 {
     let bundle_to_return: SpriteBundle = SpriteBundle
@@ -16,6 +17,7 @@ pub fn make_new_sprite_bundle_at_transform (sprite_to_load: AvailableSprites, tr
     return bundle_to_return;
 }
 
+//Move this enum and following function into SpriteTracker.
 #[derive(PartialEq, Copy, Clone, Debug)]
 pub enum AvailableSprites
 {

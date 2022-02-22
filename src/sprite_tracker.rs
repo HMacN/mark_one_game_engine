@@ -1,17 +1,19 @@
 use crate::sprite_bundle_spawner::AvailableSprites;
 
-pub struct SpriteBundleManager
+const MAX_SPRITES: usize = 1_000;
+
+pub struct SpriteTracker
 {
-    sprite: [AvailableSprites; 1000],
-    x_coord: [f32; 1000],
-    y_coord: [f32; 1000],
-    uid: [u16; 1000],
-    is_entry_spawned: [bool; 1000],
+    sprite: [AvailableSprites; MAX_SPRITES],
+    x_coord: [f32; MAX_SPRITES],
+    y_coord: [f32; MAX_SPRITES],
+    uid: [u16; MAX_SPRITES],
+    is_entry_spawned: [bool; MAX_SPRITES],
 
     next_free_index: usize,
 }
 
-pub struct SpriteBundleManagerEntry
+pub struct SpriteTrackerEntry
 {
     sprite: AvailableSprites,
     x_coord: f32,
@@ -19,7 +21,7 @@ pub struct SpriteBundleManagerEntry
     uid: u16,
 }
 
-impl SpriteBundleManagerEntry
+impl SpriteTrackerEntry
 {
     pub fn get_sprite(&self) -> AvailableSprites
     {
@@ -41,9 +43,9 @@ impl SpriteBundleManagerEntry
         return self.uid;
     }
 
-    fn default() -> SpriteBundleManagerEntry
+    fn default() -> SpriteTrackerEntry
     {
-        return SpriteBundleManagerEntry
+        return SpriteTrackerEntry
         {
             sprite: AvailableSprites::ImageNotFound,
             x_coord: 0.0,
@@ -53,16 +55,16 @@ impl SpriteBundleManagerEntry
     }
 }
 
-impl SpriteBundleManager
+impl SpriteTracker
 {
-    pub fn instantiate_new() -> SpriteBundleManager
+    pub fn instantiate_new() -> SpriteTracker
     {
-        return SpriteBundleManager {
-            sprite: [AvailableSprites::ImageNotFound; 1000],
-            x_coord: [0.0; 1000],
-            y_coord: [0.0; 1000],
-            uid: [0; 1000],
-            is_entry_spawned: [true; 1000],
+        return SpriteTracker {
+            sprite: [AvailableSprites::ImageNotFound; MAX_SPRITES],
+            x_coord: [0.0; MAX_SPRITES],
+            y_coord: [0.0; MAX_SPRITES],
+            uid: [0; MAX_SPRITES],
+            is_entry_spawned: [true; MAX_SPRITES],
 
             next_free_index: 0,
         };
@@ -86,13 +88,13 @@ impl SpriteBundleManager
         return true;
     }
     
-    pub fn get_details_by_uid(&self, uid: u16) -> SpriteBundleManagerEntry
+    pub fn get_details_by_uid(&self, uid: u16) -> SpriteTrackerEntry
     {
         let index_search_results = self.find_array_index_by_uid(uid);
 
         if index_search_results.1 == false
         {
-            return SpriteBundleManagerEntry::default();
+            return SpriteTrackerEntry::default();
         }
 
         return self.generate_struct_containing_data_entry(index_search_results.0);
@@ -100,7 +102,7 @@ impl SpriteBundleManager
 
     fn find_array_index_by_uid(&self, given_uid: u16) -> (usize, bool)
     {
-        for _i in 0..1000
+        for _i in 0..MAX_SPRITES
         {
             if self.uid[_i] == given_uid
             {
@@ -111,7 +113,7 @@ impl SpriteBundleManager
         return (0, false);
     }
 
-    pub fn update_details(&mut self, given_uid: u16, new_sprite: AvailableSprites, new_x_coord: f32, new_y_coord: f32) -> bool
+    pub fn update_details_for_uid(&mut self, given_uid: u16, new_sprite: AvailableSprites, new_x_coord: f32, new_y_coord: f32) -> bool
     {
         let index_search_results = self.find_array_index_by_uid(given_uid);
 
@@ -127,9 +129,9 @@ impl SpriteBundleManager
         return true;
     }
 
-    fn generate_struct_containing_data_entry(&self, index: usize) -> SpriteBundleManagerEntry
+    fn generate_struct_containing_data_entry(&self, index: usize) -> SpriteTrackerEntry
     {
-        return SpriteBundleManagerEntry
+        return SpriteTrackerEntry
         {
             sprite: self.sprite[index],
             x_coord: self.x_coord[index],
@@ -138,13 +140,13 @@ impl SpriteBundleManager
         };
     }
 
-    pub fn find_next_entry_to_spawn(&self) -> (SpriteBundleManagerEntry, bool)
+    pub fn find_next_entry_to_spawn(&self) -> (SpriteTrackerEntry, bool)
     {
         let are_all_entries_spawned = self.are_all_entries_spawned();
 
         if are_all_entries_spawned == true
         {
-            return (SpriteBundleManagerEntry::default(), false);
+            return (SpriteTrackerEntry::default(), false);
         }
 
         return (self.generate_struct_containing_data_entry(self.get_index_of_next_entry_to_spawn()), true);
@@ -152,7 +154,7 @@ impl SpriteBundleManager
 
     fn get_index_of_next_entry_to_spawn(&self) -> usize
     {
-        for _i in 0..1000
+        for _i in 0..MAX_SPRITES
         {
             if self.is_entry_spawned[_i] == false
             {
