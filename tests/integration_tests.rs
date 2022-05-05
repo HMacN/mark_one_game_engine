@@ -1,6 +1,11 @@
 extern crate materiel;
 
-mod uid_tracker_tests;
+mod mark_one_game_engine_test_suite
+{
+    mod uid_tracker_tests;
+    mod tile_map_tests;
+}
+
 mod tests_for_bevy_stuff
 {
     mod in_game_location_tests;
