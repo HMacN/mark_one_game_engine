@@ -1,4 +1,4 @@
-use crate::sprite_bundle_spawner::AvailableSprites;
+use crate::bevy_stuff::sprite_bundle_spawner::AvailableSprites;
 
 const MAX_SPRITES: usize = 1_000;
 

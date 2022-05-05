@@ -1,7 +1,7 @@
 extern crate materiel;
 
 use bevy::prelude::Transform;
-use materiel::isometric_game_grid::IsoGameGrid;
+use materiel::bevy_stuff::isometric_game_grid::IsoGameGrid;
 
 #[test]
 fn sets_up_correct_number_of_rows()

@@ -1,6 +1,6 @@
 use bevy::prelude::Transform;
-use materiel::in_game_location::InGameLocation;
-use materiel::isometric_game_grid::IsoGameGrid;
+use materiel::bevy_stuff::in_game_location::InGameLocation;
+use materiel::bevy_stuff::isometric_game_grid::IsoGameGrid;
 
 #[test]
 fn location_sets_up_correct_x_coord()

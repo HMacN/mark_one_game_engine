@@ -1,7 +1,8 @@
 use bevy::prelude::*;
-use materiel::isometric_game_grid::IsoGameGrid;
-use materiel::sprite_tracker::SpriteTracker;
+use materiel::bevy_stuff::isometric_game_grid::IsoGameGrid;
 use materiel::uid_tracker::UIDTracker;
+use materiel::bevy_stuff::sprite_tracker::SpriteTracker;
+
 
 fn main()
 {

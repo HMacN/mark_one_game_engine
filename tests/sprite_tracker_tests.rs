@@ -1,5 +1,5 @@
-use materiel::sprite_tracker::{SpriteTracker};
-use materiel::sprite_bundle_spawner::AvailableSprites::*;
+use materiel::bevy_stuff::sprite_tracker::SpriteTracker;
+use materiel::bevy_stuff::sprite_bundle_spawner::AvailableSprites::*;
 
 #[test]
 fn retrieve_details_of_sprite_after_one_sprite_added()
@@ -76,7 +76,7 @@ fn can_update_values_of_a_given_entry()
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
-    manager.update_details(1, Water, 100.0, 100.0);
+    manager.update_details_for_uid(1, Water, 100.0, 100.0);
 
     let entry = manager.get_details_by_uid(1);
 
@@ -93,7 +93,7 @@ fn update_details_returns_true_when_successful()
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
-    assert_eq!(manager.update_details(1, Water, 100.0, 100.0), true);
+    assert_eq!(manager.update_details_for_uid(1, Water, 100.0, 100.0), true);
 }
 
 #[test]
@@ -103,7 +103,7 @@ fn update_details_returns_false_when_unsuccessful()
 
     manager.add_sprite_bundle(Grass, 50.0, 50.0, 1);
 
-    assert_eq!(manager.update_details(2, Water, 100.0, 100.0), false);
+    assert_eq!(manager.update_details_for_uid(2, Water, 100.0, 100.0), false);
 }
 
 #[test]

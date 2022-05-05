@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::isometric_game_grid::IsoGameGrid;
+use crate::bevy_stuff::isometric_game_grid::IsoGameGrid;
 
 #[derive(Copy, Clone, Component)]
 pub struct InGameLocation
