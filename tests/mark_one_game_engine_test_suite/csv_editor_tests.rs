@@ -91,7 +91,15 @@ fn does_not_return_contents_for_invalid_header_cell()
     assert!(editor.get_header_cell(20).is_none());
 }
 
+#[test]
+fn can_get_file_name()
+{
+    assert!(set_up_test_file().is_ok());    //Test only passes if the test file is set up.
 
+    let editor: CSVEditor = CSVEditor::new(TEST_FILE_NAME).unwrap();
+
+    assert_eq!(editor.get_file_name(), TEST_FILE_NAME);
+}
 
 mod helper_functions
 {

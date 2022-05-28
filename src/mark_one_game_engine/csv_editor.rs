@@ -5,6 +5,7 @@ use csv::{Position, Reader, StringRecord};
 
 pub struct CSVEditor
 {
+    file_name: String,
     reader: Reader<File>,
     reader_starting_position: Position,
 }
@@ -22,6 +23,7 @@ impl CSVEditor
 
             let new_editor = CSVEditor
             {
+                file_name: file_name.to_string(),
                 reader: new_reader,
                 reader_starting_position: starting_position
             };
@@ -120,5 +122,10 @@ impl CSVEditor
         }
 
         return Option::from(headers.index(col_index).to_owned());
+    }
+
+    pub fn get_file_name(&self) -> &str
+    {
+        return self.file_name.as_str();
     }
 }
