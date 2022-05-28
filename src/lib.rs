@@ -7,8 +7,4 @@ pub mod bevy_stuff
     pub mod tutorial_module;
 }
 
-pub mod mark_one_game_engine
-{
-    pub mod uid_tracker;
-    pub mod tile_map;
-}
+pub mod mark_one_game_engine;
