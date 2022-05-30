@@ -49,13 +49,19 @@ fn detects_char_not_in_tile()
 }
 
 #[test]
-fn gets_row_size()
+fn gets_number_of_columns()
 {
-    //TODO
+    let file_name = "tile_map_test_file.csv";
+    let mut tile_map = TileMap::new(file_name).unwrap();
+
+    assert_eq!(tile_map.get_number_of_columns(), 3);
 }
 
 #[test]
-fn gets_column_size()
+fn gets_number_of_rows()
 {
-    //TODO
+    let file_name = "tile_map_test_file.csv";
+    let mut tile_map = TileMap::new(file_name).unwrap();
+
+    assert_eq!(tile_map.get_number_of_rows(), 4);
 }

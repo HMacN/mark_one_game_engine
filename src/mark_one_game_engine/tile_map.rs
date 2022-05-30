@@ -52,4 +52,14 @@ impl TileMap
 
         return false;
     }
+
+    pub fn get_number_of_columns(&mut self) -> usize
+    {
+        return self.csv_editor.get_cols();
+    }
+
+    pub fn get_number_of_rows(&mut self) -> usize
+    {
+        return self.csv_editor.get_rows();
+    }
 }
