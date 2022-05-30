@@ -64,6 +64,10 @@ fn does_not_return_cell_contents_for_invalid_cell()
 
     let mut editor: CSVEditor = CSVEditor::new(TEST_FILE_NAME).unwrap();
 
+    assert!(editor.get_cell(3, 3).is_none());
+    assert!(editor.get_cell(4, 2).is_none());
+
+
     assert!(editor.get_cell(2, 20).is_none());
     assert!(editor.get_cell(20, 2).is_none());
     assert!(editor.get_cell(20, 20).is_none());

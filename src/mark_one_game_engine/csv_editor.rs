@@ -95,7 +95,7 @@ impl CSVEditor
 
         let line = record.unwrap();
 
-        if line.len() < col_index
+        if line.len() <= col_index
         {
             return None;    //Return none if the column index is out of range.
         }
