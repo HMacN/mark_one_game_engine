@@ -6,13 +6,17 @@ use materiel::bevy_stuff::sprite_tracker::SpriteTracker;
 
 fn main()
 {
-    App::new()
+/*    App::new()
         .add_plugins(DefaultPlugins)
         .insert_resource(IsoGameGrid::instantiate_new(64, 128, 5, 5))
         .insert_resource(SpriteTracker::instantiate_new())
         .insert_resource(UIDTracker::instantiate_new())
         .add_startup_system(setup)
-        .run();
+        .run();*/
+
+    let sprite = materiel::mark_one_game_engine::sprite::Sprite::new("test_sprite.png").unwrap();
+
+    sprite.display();
 }
 
 fn setup(mut commands: Commands)
