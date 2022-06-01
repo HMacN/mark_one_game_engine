@@ -32,7 +32,7 @@ fn gets_file_rows()
 
     let mut editor: CSVEditor = CSVEditor::new(TEST_FILE_NAME).unwrap();
 
-    assert_eq!(editor.get_rows(), TEST_FILE_ROWS);
+    assert_eq!(editor.get_number_of_rows(), TEST_FILE_ROWS);
 }
 
 #[test]
@@ -42,7 +42,7 @@ fn gets_file_cols()
 
     let mut editor: CSVEditor = CSVEditor::new(TEST_FILE_NAME).unwrap();
 
-    assert_eq!(editor.get_cols(), TEST_FILE_COLS);
+    assert_eq!(editor.get_number_of_columns(), TEST_FILE_COLS);
 }
 
 #[test]

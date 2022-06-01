@@ -3,15 +3,29 @@ use std::ops::Index;
 use std::path::Path;
 use csv::{Position, Reader, StringRecord};
 
+/// A wrapper for the csv crate, which allows cells in a given .csv file to be directly referenced
+/// by their coordinates.
 pub struct CSVEditor
 {
+    /// The file path of the .csv file that this editor is associated with.
     file_name: String,
+
+    /// The "normal" .csv file reader which is used to read from the given file.
     reader: Reader<File>,
+
+    /// The starting position of the reader in the file.  Used to reset the reader before new read
+    /// operations.
     reader_starting_position: Position,
 }
 
 impl CSVEditor
 {
+    /// A constructor for the file editor.
+    ///
+    /// # Arguments
+    ///
+    /// * 'file_name' - A string slice which contains the file path of the file this editor is to be
+    ///                 associated with.
     pub fn new(file_name : &str) -> Option<CSVEditor>
     {
         let attempt_at_reader = csv::Reader::from_path(file_name);
@@ -36,6 +50,7 @@ impl CSVEditor
         }
     }
 
+    /// Resets the reader position to the beginning of the file.
     fn reset_reader_position(&mut self)
     {
         let new_position = self.reader_starting_position.clone();
@@ -48,7 +63,12 @@ impl CSVEditor
         }
     }
 
-    pub fn get_rows(&mut self) -> usize
+    /// Returns the number of rows in the .csv file.
+    ///
+    /// # Returns
+    ///
+    /// * 'number_of_rows' - a usize which is the number of rows in the .csv file.
+    pub fn get_number_of_rows(&mut self) -> usize
     {
         self.reset_reader_position();
 
@@ -57,7 +77,12 @@ impl CSVEditor
         return number_of_rows_including_headers - 1;
     }
 
-    pub fn get_cols(&mut self) -> usize
+    /// Returns the number of columns in the .csv file.
+    ///
+    /// # Returns
+    ///
+    /// * 'number_of_columns' - a usize which is the number of columns in the .csv file.
+    pub fn get_number_of_columns(&mut self) -> usize
     {
         self.reset_reader_position();
 
@@ -71,6 +96,17 @@ impl CSVEditor
         return headers_string_records.unwrap().len();
     }
 
+    /// Gets the contents of a particular cell at the given coordinates.  Returns 'None' if the
+    /// given coordinates are out of range, or if a String cannot be read from the given cell.
+    ///
+    /// # Arguments
+    ///
+    /// * 'row_index' -     a usize which is the row the cell to be read is located on.
+    /// * 'column_index' -  a usize which is the column the cell to be read is located on.
+    ///
+    /// # Returns
+    ///
+    /// * 'cell_contents' - an Option<String> which contains the String read from the given cell.
     pub fn get_cell(&mut self, row_index: usize, col_index: usize) -> Option<String>
     {
         self.reset_reader_position();
@@ -103,6 +139,17 @@ impl CSVEditor
         return Option::from(line.index(col_index).to_owned());
     }
 
+    /// Gets the contents of a particular cell in the header of the .csv file.  Returns 'None' if
+    /// the given cell is out of range for the document, or if a String cannot be read from the
+    /// cell.
+    ///
+    /// # Arguments
+    ///
+    /// * 'column_index' -  a usize which is the column the cell to be read is located on.
+    ///
+    /// # Returns
+    ///
+    /// * 'cell_contents' - an Option<String> which contains the String read from the given cell.
     pub fn get_header_cell(&mut self, col_index: usize) -> Option<String>
     {
         self.reset_reader_position();
@@ -124,6 +171,12 @@ impl CSVEditor
         return Option::from(headers.index(col_index).to_owned());
     }
 
+    /// Gets the name of the .csv file that this editor is associated with.
+    ///
+    /// # Returns
+    ///
+    /// * 'file_name' - a string slice which is the filename of the .csv file this editor is
+    ///                 associated with.
     pub fn get_file_name(&self) -> &str
     {
         return self.file_name.as_str();

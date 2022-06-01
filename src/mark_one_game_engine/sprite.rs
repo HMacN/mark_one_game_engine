@@ -22,7 +22,8 @@ impl Sprite
         let HEIGHT = 256;
         let event_loop = EventLoop::new();
 
-        let window = {
+        let window =
+        {
             let size = LogicalSize::new(WIDTH as f64, HEIGHT as f64);
             let scaled_size = LogicalSize::new(WIDTH as f64 * 3.0, HEIGHT as f64 * 3.0);
             WindowBuilder::new()
@@ -34,12 +35,12 @@ impl Sprite
         };
 
         let pixels =
-            {
-                let window_size = window.inner_size();
-                let surface_texture = SurfaceTexture::new(window_size.width, window_size.height, &window);
-                Pixels::new(WIDTH, HEIGHT, surface_texture);
-            };
+        {
+            let window_size = window.inner_size();
+            let surface_texture = SurfaceTexture::new(window_size.width, window_size.height, &window);
+            Pixels::new(WIDTH, HEIGHT, surface_texture)
+        };
 
-        pixels.
+        event_loop.run()
     }
 }

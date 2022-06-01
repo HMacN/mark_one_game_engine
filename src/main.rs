@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 use bevy::prelude::*;
 use materiel::bevy_stuff::isometric_game_grid::IsoGameGrid;
 use materiel::mark_one_game_engine::uid_tracker::UIDTracker;
