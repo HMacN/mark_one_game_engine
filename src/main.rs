@@ -16,9 +16,9 @@ fn main()
         .add_startup_system(setup)
         .run();*/
 
-    let sprite = materiel::mark_one_game_engine::sprite::Sprite::new("test_sprite.png").unwrap();
+    let sprite = materiel::mark_one_game_engine::display_window::DisplayWindow::new("test_sprite.png").unwrap();
 
-    sprite.display();
+    sprite.display_window();
 }
 
 fn setup(mut commands: Commands)
