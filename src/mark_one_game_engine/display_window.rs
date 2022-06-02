@@ -5,6 +5,8 @@ use winit::{
 use winit::dpi::{Position, Size};
 use winit::event::{Event, WindowEvent};
 use winit::event_loop::ControlFlow;
+use winit::monitor::VideoMode;
+use winit::window::{Fullscreen, Window};
 
 pub struct DisplayWindow
 {
@@ -21,11 +23,16 @@ impl DisplayWindow
     pub fn display_window(&self)
     {
         let event_loop = EventLoop::new();
-        let mut window_builder = WindowBuilder::new();
+        let fullscreen = Option::from(Fullscreen::Borderless(None));
 
-        window_builder = window_builder.with_title("Hugh's Window");
+        let mut window_builder = WindowBuilder::new()
+            .with_title("Hugh's Window")
+            .with_fullscreen(fullscreen)
+            ;
 
-        let window = window_builder.build(&event_loop).unwrap();
+        let window: Window = window_builder.build(&event_loop).unwrap();
+
+        window.request_redraw();
 
         event_loop.run(move |event, _, mut control_flow|
             {
@@ -45,7 +52,7 @@ impl DisplayWindow
 
     // pub fn display(&self)
     // {
-    // 
+    //
     //     let WIDTH= 512;
     //     let HEIGHT = 256;
     //     let event_loop = EventLoop::new();
