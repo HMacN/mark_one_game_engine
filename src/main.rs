@@ -1,11 +1,5 @@
 #![forbid(unsafe_code)]
 
-use bevy::prelude::*;
-use materiel::bevy_stuff::isometric_game_grid::IsoGameGrid;
-use materiel::mark_one_game_engine::uid_tracker::UIDTracker;
-use materiel::bevy_stuff::sprite_tracker::SpriteTracker;
-
-
 fn main()
 {
 /*    App::new()
@@ -16,12 +10,7 @@ fn main()
         .add_startup_system(setup)
         .run();*/
 
-    let sprite = materiel::mark_one_game_engine::display_window::DisplayWindow::new("test_sprite.png").unwrap();
+    let sprite = materiel::mark_one_game_engine::display_window::DisplayWindow::new().unwrap();
 
     sprite.display_window();
-}
-
-fn setup(mut commands: Commands)
-{
-    commands.spawn_bundle(OrthographicCameraBundle::new_2d());
 }
