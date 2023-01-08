@@ -1,4 +1,4 @@
-use materiel::model::csv_editor::CSVEditor;
+use mark_one_game_engine::model::csv_editor::CSVEditor;
 use crate::mark_one_game_engine_test_suite::csv_editor_tests::helper_functions::set_up_test_file;
 
 static TEST_FILE_NAME: &str = "csv_editor_test_file.csv";

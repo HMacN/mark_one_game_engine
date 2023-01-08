@@ -1,6 +1,5 @@
-extern crate materiel;
+extern crate mark_one_game_engine;
 
-#[cfg(test)]
 mod mark_one_game_engine_test_suite
 {
     mod uid_tracker_tests;
