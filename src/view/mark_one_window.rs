@@ -2,7 +2,7 @@ use winit::event::{Event, VirtualKeyCode};
 use winit::event_loop::{ControlFlow, EventLoop, EventLoopWindowTarget};
 use winit::window::{Fullscreen, Window, WindowBuilder};
 use winit_input_helper::WinitInputHelper;
-use crate::mark_one_game_engine::mark_one_game_core::MarkOneGameCore;
+use crate::model::mark_one_game_core::MarkOneGameCore;
 
 pub struct MarkOneWindow {
     input: WinitInputHelper,

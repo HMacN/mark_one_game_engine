@@ -1,4 +1,4 @@
-use crate::mark_one_game_engine::csv_editor::CSVEditor;
+use crate::model::csv_editor::CSVEditor;
 
 /// A Tile Map Object which allows a .csv file to be read in as a map, and then referred to using
 /// the coordinates of the tiles.

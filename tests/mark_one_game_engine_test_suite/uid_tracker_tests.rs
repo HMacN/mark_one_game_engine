@@ -1,4 +1,4 @@
-use materiel::mark_one_game_engine::uid_tracker::UIDTracker;
+use materiel::model::uid_tracker::UIDTracker;
 
 #[test]
 fn can_request_a_uid()
