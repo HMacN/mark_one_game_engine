@@ -1,6 +1,6 @@
 #![forbid(unsafe_code)]
 
-use materiel::model::mark_one_game_core::MarkOneGameCore;
+use mark_one_game_engine::model::mark_one_game_core::MarkOneGameCore;
 
 fn main()
 {

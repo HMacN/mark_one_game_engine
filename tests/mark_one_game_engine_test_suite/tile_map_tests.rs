@@ -1,4 +1,4 @@
-use materiel::model::tile_map::TileMap;
+use mark_one_game_engine::model::tile_map::TileMap;
 
 #[test]
 fn can_check_tile_map_filename()

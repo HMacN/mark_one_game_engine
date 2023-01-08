@@ -62,6 +62,6 @@ impl MarkOneWindow {
                 }
             };
 
-        event_loop.run(event_handler);
+        //event_loop.run(event_handler);    //todo fix this
     }
 }
