@@ -1,2 +1,2 @@
-pub mod mark_one_game_engine;
+pub mod model;
 pub mod view;
