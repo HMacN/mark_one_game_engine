@@ -1,67 +1,113 @@
-use winit::event::{Event, VirtualKeyCode};
-use winit::event_loop::{ControlFlow, EventLoop, EventLoopWindowTarget};
+use winit::event::{Event, WindowEvent};
+use winit::event_loop::EventLoop;
 use winit::window::{Fullscreen, Window, WindowBuilder};
 use winit_input_helper::WinitInputHelper;
-use crate::model::mark_one_game_core::MarkOneGameCore;
 
 pub struct MarkOneWindow {
     input: WinitInputHelper,
+    window: Option<Window>,
+    state: WindowState,
 }
 
 impl MarkOneWindow {
-
     pub fn new() -> MarkOneWindow {
-        return MarkOneWindow { input: WinitInputHelper::new() };
+        return MarkOneWindow {
+            input: WinitInputHelper::new(),
+            window: None,
+            state: WindowState::new(),
+        }
     }
 
-    pub fn run(&mut self, title: &str) {
+    pub fn run_window(&mut self) {
         let event_loop: EventLoop<()> = EventLoop::new();
-        let fullscreen = Option::from(Fullscreen::Borderless(None));
-        let window_builder: WindowBuilder = WindowBuilder::new()
-            .with_title(title)
-            .with_fullscreen(fullscreen)
-            ;
+        self.window = Option::from(WindowBuilder::new().build(&event_loop).unwrap());
 
-        let window: Window = window_builder.build(&event_loop).expect("Could not create a WinIt Window!");
+        self.update_window_state();
 
-        window.set_visible(true);
+        event_loop.run(move |event, _, control_flow| {
+            control_flow.set_poll();    // Sets the loop to continuously update, even if there are no events from the OS.
 
-        // let surface_texture = SurfaceTexture::new(window.inner_size().width, window.inner_size().height, &window);
+            match event {
+                Event::WindowEvent { event: WindowEvent::CloseRequested, .. } => {
+                    control_flow.set_exit();
+                },
+                _ => {}
+            }
+        });
+    }
 
-        //let mut pixels = Pixels::new(window.inner_size().width, window.inner_size().height, surface_texture).unwrap();
+    fn update_window_state(&self) {
+        if self.window.is_none() {
+            return;
+        } else {
+            let window: &Window = self.window.as_ref().unwrap();
+            self.pass_window_state_to_window(window)
+        }
+    }
 
-        let event_handler = move |event: Event<'_, ()>, c: &EventLoopWindowTarget<()>, control_flow: &mut ControlFlow| {
-                // Instruct loop to begin again immediately, even if there are no new events.  This makes
-                // the game continue to render to the screen.
-                *control_flow = ControlFlow::Poll;
+    fn pass_window_state_to_window(&self, window: &Window) {
+        window.set_title(&*self.state.title.clone());
+        window.set_visible(self.state.visible);
+        window.set_fullscreen(self.state.full_screen.clone());
+        window.set_minimized(self.state.minimised)
+    }
 
-                if self.input.update(&event) {
-                    // Close events
-                    if self.input.key_pressed(VirtualKeyCode::Escape) || self.input.quit() {
-                        *control_flow = ControlFlow::Exit;
-                        return;
-                    }
+    pub fn show_window(&mut self) {
+        self.state.visible = true;
+        self.update_window_state();
+    }
 
-                    // Enter and exit fullscreen
-                    if self.input.key_pressed(VirtualKeyCode::F11) {
-                        if window.fullscreen().is_some() {
-                            window.set_fullscreen(None)
-                        } else {
-                            window.set_fullscreen(Option::from(Fullscreen::Borderless(None)))
-                        }
+    pub fn hide_window(&mut self) {
+        self.state.visible = false;
+        self.update_window_state();
+    }
 
-                        window.request_redraw();
-                    }
+    pub fn enter_fullscreen(&mut self) {
+        self.state.full_screen = Option::from(Fullscreen::Borderless(None));
+        self.update_window_state();
+    }
 
-                    // Resize the window
-                    if let Some(_size) = self.input.window_resized() {
-                        //pixels.resize_surface(size.width, size.height);
-                    }
+    pub fn exit_fullscreen(&mut self) {
+        self.state.full_screen = None;
+        self.update_window_state();
+    }
 
-                    window.request_redraw();
-                }
-            };
+    pub fn enter_minimised(&mut self) {
+        self.state.minimised = true;
+        self.update_window_state();
+    }
 
-        //event_loop.run(event_handler);    //todo fix this
+    pub fn exit_minimised(&mut self) {
+        self.state.minimised = false;
+        self.update_window_state();
+    }
+
+    pub fn set_window_title(&mut self, title: String) {
+        self.state.title = title;
+        self.update_window_state();
+    }
+
+    pub fn close(&mut self) {
+        self.window = None;
+        self.state = WindowState::new();
+    }
+}
+
+
+struct WindowState {
+    title: String,
+    visible: bool,
+    full_screen: Option<Fullscreen>,
+    minimised: bool,
+}
+
+impl WindowState {
+    fn new() -> WindowState {
+        return WindowState {
+            title: "".to_string(),
+            visible: false,
+            full_screen: None,
+            minimised: false,
+        }
     }
 }
