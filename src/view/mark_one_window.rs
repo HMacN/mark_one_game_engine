@@ -1,4 +1,4 @@
-
+use winit::window::Window;
 use crate::view::window_state::WindowState;
 use crate::view::winit_adapter::WinItAdapter;
 
@@ -24,7 +24,13 @@ impl MarkOneWindow {
     }
 
     fn retrieve_window_state(&mut self) {
-        self.state = self.window.get_window_state();
+        let window_state: Option<WindowState> = self.window.get_window_state();
+
+        if window_state.is_none() {
+            return;
+        } else {
+            self.state = window_state.unwrap();
+        }
     }
 
     pub fn show_window(&mut self) {
