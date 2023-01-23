@@ -50,9 +50,76 @@ fn test_initialise_with_variables() {
 }
 
 #[test]
-fn test_setting_both_fullscreen_and_minimised_true_sets_both_to_false() {
-    let state: WindowState = WindowState::new("Test".to_string(), true, true, true);
+fn test_clone_function() {
+    let state_1: WindowState = WindowState::new("Test".to_string(), true, false, true);
+    let state_2: WindowState = state_1.clone();
+
+    assert_eq!(state_1.get_title(), state_2.get_title());
+    assert_eq!(state_1.is_visible(), state_2.is_visible());
+    assert_eq!(state_1.is_fullscreen(), state_2.is_fullscreen());
+    assert_eq!(state_1.is_minimised(), state_2.is_minimised());
+}
+
+#[test]
+fn test_set_title() {
+    let mut state: WindowState = WindowState::default_new();
+    let new_title: String = "New Title".to_string();
+
+    state.set_title(new_title.clone());
+
+    assert_eq!(new_title, state.get_title());
+}
+
+#[test]
+fn test_show() {
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true);
+
+    state.show();
+
+    assert!(state.is_visible());
+}
+
+#[test]
+fn test_hide() {
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true);
+
+    state.hide();
+
+    assert!(!state.is_visible());
+}
+
+#[test]
+fn test_minimise() {
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, false);
+
+    state.minimise();
+
+    assert!(state.is_minimised());
+}
+
+#[test]
+fn test_restore_from_minimised() {
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true);
+
+    state.restore();
+
+    assert!(!state.is_minimised());
+}
+
+#[test]
+fn test_go_fullscreen() {
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, false);
+
+    state.go_fullscreen();
+
+    assert!(state.is_fullscreen());
+}
+
+#[test]
+fn test_exit_fullscreen() {
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, true, true);
+
+    state.exit_fullscreen();
 
     assert!(!state.is_fullscreen());
-    assert!(!state.is_minimised());
 }
