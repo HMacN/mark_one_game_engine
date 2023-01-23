@@ -65,16 +65,19 @@ impl WinItAdapter {
         window.set_minimized(minimised);
     }
 
-    pub fn get_window_state(&self) -> WindowState {
+    pub fn get_window_state(&self) -> Option<WindowState> {
+        return if self.window.is_none() {
+            None
+        } else {
+            let window: &Window = self.window.as_ref().unwrap();
 
-        let window: &Window = self.window.as_ref().unwrap();
-
-        return WindowState::new(
-            self.title.clone(),
-            WinItAdapter::get_visible_from_window(window),
-            WinItAdapter::get_fullscreen_from_window(window),
-            self.minimised,
-        )
+            Option::from(WindowState::new(
+                self.title.clone(),
+                WinItAdapter::get_visible_from_window(window),
+                WinItAdapter::get_fullscreen_from_window(window),
+                self.minimised,
+            ))
+        }
     }
 
     fn get_visible_from_window(window: &Window) -> bool {
