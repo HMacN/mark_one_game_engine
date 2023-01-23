@@ -14,8 +14,8 @@ impl MarkOneGameCore {
     pub fn display_window(&mut self) {
         self.window.enter_fullscreen();
         self.window.exit_fullscreen();
-        self.window.enter_minimised();
-        self.window.exit_minimised();
+        self.window.minimise();
+        self.window.restore_from_minimised();
         self.window.set_window_title(String::from("Test"));
         self.window.hide_window();
         self.window.show_window();
