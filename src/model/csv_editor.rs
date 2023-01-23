@@ -13,7 +13,7 @@ pub struct CSVEditor
     /// The "normal" .csv file reader which is used to read from the given file.
     reader: Reader<File>,
 
-    /// The starting position of the reader in the file.  Used to reset the reader before new read
+    /// The starting position of the reader in the file.  Used to reset the reader before default_new read
     /// operations.
     reader_starting_position: Position,
 }

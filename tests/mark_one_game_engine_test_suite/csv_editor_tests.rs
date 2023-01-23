@@ -123,7 +123,7 @@ mod helper_functions
             }
             else
             {
-                fs::remove_file(TEST_FILE_NAME)?;   //Delete the old file before creating a new one.
+                fs::remove_file(TEST_FILE_NAME)?;   //Delete the old file before creating a default_new one.
             }
         }
 

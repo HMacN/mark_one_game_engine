@@ -9,7 +9,7 @@ pub struct UIDTracker
 
 impl UIDTracker
 {
-    /// A constructor which creates a new UIDTracker and sets the first UID to be returned to be 1.
+    /// A constructor which creates a default_new UIDTracker and sets the first UID to be returned to be 1.
     ///
     /// #Returns
     ///
@@ -19,7 +19,7 @@ impl UIDTracker
         return UIDTracker { lowest_free_uid: 1 }
     }
 
-    /// A constructor which creates a new UIDTracker and sets the first UID to be returned to be the
+    /// A constructor which creates a default_new UIDTracker and sets the first UID to be returned to be the
     /// given starting number.
     ///
     /// #Arguments
@@ -34,11 +34,11 @@ impl UIDTracker
         return UIDTracker { lowest_free_uid: starting_int }
     }
 
-    /// Allows the requesting of new UID numbers.
+    /// Allows the requesting of default_new UID numbers.
     ///
     /// #Returns
     ///
-    /// * A u16 which is the new UID number being issued.
+    /// * A u16 which is the default_new UID number being issued.
     pub fn request_new_uid(&mut self) -> u16
     {
         let uid_to_return = self.lowest_free_uid;
