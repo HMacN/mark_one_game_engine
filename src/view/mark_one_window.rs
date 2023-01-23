@@ -1,20 +1,18 @@
 use winit::event::{Event, WindowEvent};
 use winit::event_loop::EventLoop;
 use winit::window::{Fullscreen, Window, WindowBuilder};
-use winit_input_helper::WinitInputHelper;
+use crate::view::window_state::WindowState;
 
 pub struct MarkOneWindow {
-    input: WinitInputHelper,
     window: Option<Window>,
-    state: WindowState,
+    state: WindowState2,
 }
 
 impl MarkOneWindow {
     pub fn new() -> MarkOneWindow {
         return MarkOneWindow {
-            input: WinitInputHelper::new(),
             window: None,
-            state: WindowState::new(),
+            state: WindowState2::new(),
         }
     }
 
@@ -89,25 +87,39 @@ impl MarkOneWindow {
 
     pub fn close(&mut self) {
         self.window = None;
-        self.state = WindowState::new();
+        self.state = WindowState2::new();
     }
 }
 
 
-struct WindowState {
+struct WindowState2 {
     title: String,
     visible: bool,
     full_screen: Option<Fullscreen>,
     minimised: bool,
 }
 
-impl WindowState {
-    fn new() -> WindowState {
-        return WindowState {
+impl WindowState2 {
+    fn new() -> WindowState2 {
+        return WindowState2 {
             title: "".to_string(),
             visible: false,
             full_screen: None,
             minimised: false,
+        }
+    }
+}
+
+struct WinItAdapter {
+    window: Option<Window>,
+    state: WindowState2,
+}
+
+impl WinItAdapter {
+    fn new(state: WindowState2) -> WinItAdapter {
+        return WinItAdapter {
+            window: None,
+            state,
         }
     }
 }
