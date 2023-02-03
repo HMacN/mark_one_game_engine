@@ -1,5 +1,3 @@
-use std::cmp::min;
-
 pub struct WindowState {
     title: String,
     visible: bool,
@@ -17,7 +15,7 @@ impl WindowState {
         }
     }
 
-    pub fn new(title: String, visible: bool, mut full_screen: bool, mut minimised: bool) -> WindowState {
+    pub fn new(title: String, visible: bool, full_screen: bool, minimised: bool) -> WindowState {
         return WindowState {
             title,
             visible,
