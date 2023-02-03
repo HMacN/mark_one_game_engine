@@ -1,4 +1,3 @@
-use std::cmp::min;
 use winit::window::{Fullscreen, Window, WindowBuilder};
 use winit::event_loop::EventLoop;
 use winit::event::{Event, WindowEvent};
