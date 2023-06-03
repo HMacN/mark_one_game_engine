@@ -1,12 +1,14 @@
 use winit::window::{Fullscreen, Window, WindowBuilder};
 use winit::event_loop::EventLoop;
-use winit::event::{Event, WindowEvent};
+use winit::event::{Event, VirtualKeyCode, WindowEvent};
+use winit_input_helper::WinitInputHelper;
 use crate::view::window_state::WindowState;
 
 pub(crate) struct WinItAdapter {
     window: Option<Window>,
     title: String,
     minimised: bool,
+
 }
 
 impl WinItAdapter {
@@ -20,6 +22,7 @@ impl WinItAdapter {
 
     pub fn run_window(&mut self, state: WindowState) {
         let event_loop: EventLoop<()> = EventLoop::new();
+        let mut input_helper: WinitInputHelper = WinitInputHelper::new();
         self.window = Option::from(WindowBuilder::new().build(&event_loop).unwrap());
 
         self.set_window_state(state);
@@ -33,6 +36,10 @@ impl WinItAdapter {
                 },
                 _ => {}
             }
+
+            if input_helper.update(&event) {
+                // generate_input_notifications(input_helper)   // todo figure out what this is meant to do.
+            };
         });
     }
 
@@ -94,4 +101,52 @@ impl WinItAdapter {
             true
         }
     }
+
+    fn generate_input_notifications(&self, input_helper: WinitInputHelper) {
+        // if input_helper.key_pressed(VirtualKeyCode::) {  // todo figure out what this is meant to do.
+        //
+        // }
+    }
 }
+
+struct Listener {
+
+}
+
+impl Listener {
+    fn notify(&self) {
+
+    }
+}
+
+enum InputEvent {   // todo add all keys and input events to this.
+    PressedA,
+    PressedB,
+    PressedC,
+    PressedD,
+    PressedE,
+    PressedF,
+    PressedG,
+    PressedH,
+    PressedI,
+    PressedJ,
+    PressedK,
+    PressedL,
+    PressedM,
+    PressedN,
+    PressedO,
+    PressedP,
+    PressedQ,
+    PressedR,
+    PressedS,
+    PressedT,
+    PressedU,
+    PressedV,
+    PressedW,
+    PressedX,
+    PressedY,
+    PressedZ,
+
+}
+
+
