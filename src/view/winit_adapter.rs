@@ -1,3 +1,4 @@
+use std::cmp::max;
 use winit::window::{Fullscreen, Window, WindowBuilder};
 use winit::event_loop::EventLoop;
 use winit::event::{Event, VirtualKeyCode, WindowEvent};
@@ -38,7 +39,7 @@ impl WinItAdapter {
             }
 
             if input_helper.update(&event) {
-                // generate_input_notifications(input_helper)   // todo figure out what this is meant to do.
+                // generate_input_notifications(input_helper)   // TODO: Generate non-WinIt events for the rest of the program from detected WinIt input events.
             };
         });
     }
@@ -71,6 +72,10 @@ impl WinItAdapter {
         window.set_minimized(minimised);
     }
 
+    fn update_maximised(&mut self, window: &Window, maximised: bool) {
+        window.set_maximized(maximised);
+    }
+
     pub fn get_window_state(&self) -> Option<WindowState> {
         return if self.window.is_none() {
             None
@@ -82,7 +87,7 @@ impl WinItAdapter {
                 WinItAdapter::get_visible_from_window(window),
                 WinItAdapter::get_fullscreen_from_window(window),
                 self.minimised,
-            ))
+                WinItAdapter::get_maximised_from_window(window)))
         }
     }
 
@@ -102,8 +107,12 @@ impl WinItAdapter {
         }
     }
 
+    fn get_maximised_from_window(window: &Window) -> bool {
+        return window.is_maximized();
+    }
+
     fn generate_input_notifications(&self, input_helper: WinitInputHelper) {
-        // if input_helper.key_pressed(VirtualKeyCode::) {  // todo figure out what this is meant to do.
+        // if input_helper.key_pressed(VirtualKeyCode::) {  // TODO: Convert input_helper input types into non-WinIt types.
         //
         // }
     }

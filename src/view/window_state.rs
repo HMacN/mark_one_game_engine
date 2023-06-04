@@ -3,6 +3,7 @@ pub struct WindowState {
     visible: bool,
     full_screen: bool,
     minimised: bool,
+    maximised: bool,
 }
 
 impl WindowState {
@@ -12,15 +13,17 @@ impl WindowState {
             visible: false,
             full_screen: true,
             minimised: false,
+            maximised: false
         }
     }
 
-    pub fn new(title: String, visible: bool, full_screen: bool, minimised: bool) -> WindowState {
+    pub fn new(title: String, visible: bool, full_screen: bool, minimised: bool, maximised: bool) -> WindowState {
         return WindowState {
             title,
             visible,
             full_screen,
             minimised,
+            maximised,
         }
     }
 
@@ -60,8 +63,16 @@ impl WindowState {
         return self.minimised;
     }
 
+    pub fn is_maximised(&self) -> bool {
+        return self.maximised
+    }
+
     pub fn minimise(&mut self) {
         self.minimised = true;
+    }
+
+    pub fn maximise(&mut self) {
+        self.maximised = true;
     }
 
     pub fn restore(&mut self) {
@@ -74,6 +85,7 @@ impl WindowState {
             visible: self.visible,
             full_screen: self.full_screen,
             minimised: self.minimised,
+            maximised: self.maximised
         }
     }
 }
