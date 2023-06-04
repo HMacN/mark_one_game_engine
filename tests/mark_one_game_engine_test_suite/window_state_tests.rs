@@ -1,4 +1,4 @@
-use std::cmp::min;
+use std::cmp::{max, min};
 use mark_one_game_engine::view::window_state;
 use mark_one_game_engine::view::window_state::WindowState;
 
@@ -35,29 +35,40 @@ fn test_initialise_with_minimised_set_to_false() {
 }
 
 #[test]
+fn test_initialise_with_maximised_set_to_false() {
+    let state: WindowState = WindowState::default_new();
+    let maximised: bool = state.is_maximised();
+
+    assert!(!maximised);
+}
+
+#[test]
 fn test_initialise_with_variables() {
-    let state: WindowState = WindowState::new("Test".to_string(), true, false, true);
+    let state: WindowState = WindowState::new("Test".to_string(), true, false, true, false);
 
     let title: String = state.get_title();
     let visible: bool = state.is_visible();
     let full_screen: bool = state.is_fullscreen();
     let minimised: bool = state.is_minimised();
+    let maximised: bool = state.is_maximised();
 
     assert_eq!("Test".to_string(), title);
     assert!(visible);
     assert!(!full_screen);
     assert!(minimised);
+    assert!(!maximised)
 }
 
 #[test]
 fn test_clone_function() {
-    let state_1: WindowState = WindowState::new("Test".to_string(), true, false, true);
+    let state_1: WindowState = WindowState::new("Test".to_string(), true, false, true, false);
     let state_2: WindowState = state_1.clone();
 
     assert_eq!(state_1.get_title(), state_2.get_title());
     assert_eq!(state_1.is_visible(), state_2.is_visible());
     assert_eq!(state_1.is_fullscreen(), state_2.is_fullscreen());
     assert_eq!(state_1.is_minimised(), state_2.is_minimised());
+    assert_eq!(state_1.is_maximised(), state_2.is_maximised())
 }
 
 #[test]
@@ -72,7 +83,7 @@ fn test_set_title() {
 
 #[test]
 fn test_show() {
-    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true);
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true, false);
 
     state.show();
 
@@ -81,7 +92,7 @@ fn test_show() {
 
 #[test]
 fn test_hide() {
-    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true);
+    let mut state: WindowState = WindowState::new("Test".to_string(), true, false, true, false);
 
     state.hide();
 
@@ -90,7 +101,7 @@ fn test_hide() {
 
 #[test]
 fn test_minimise() {
-    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, false);
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, false, false);
 
     state.minimise();
 
@@ -99,7 +110,7 @@ fn test_minimise() {
 
 #[test]
 fn test_restore_from_minimised() {
-    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true);
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, true, false);
 
     state.restore();
 
@@ -108,7 +119,7 @@ fn test_restore_from_minimised() {
 
 #[test]
 fn test_go_fullscreen() {
-    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, false);
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, false, false, false);
 
     state.go_fullscreen();
 
@@ -117,9 +128,18 @@ fn test_go_fullscreen() {
 
 #[test]
 fn test_exit_fullscreen() {
-    let mut state: WindowState = WindowState::new("Test".to_string(), false, true, true);
+    let mut state: WindowState = WindowState::new("Test".to_string(), false, true, true, false);
 
     state.exit_fullscreen();
 
     assert!(!state.is_fullscreen());
+}
+
+#[test]
+fn test_go_maximised() {
+    let mut state: WindowState = WindowState::default_new();
+
+    state.maximise();
+
+    assert!(state.is_maximised());
 }
