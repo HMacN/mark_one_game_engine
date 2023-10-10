@@ -37,7 +37,7 @@ impl TileMap
         {
             let tile_map = TileMap{csv_editor: option_of_csv_editor.unwrap()};
 
-            return Option::Some(tile_map);
+            return Some(tile_map);
         }
     }
 

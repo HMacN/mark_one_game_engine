@@ -50,6 +50,7 @@ impl WinItAdapter {
             window.set_title(&*state.get_title());
             window.set_visible(state.is_visible());
             window.set_minimized(state.is_minimised());
+            window.set_maximized(state.is_maximised());
 
             if state.is_fullscreen() {
                 window.set_fullscreen(Option::from(Fullscreen::Borderless(None)))
