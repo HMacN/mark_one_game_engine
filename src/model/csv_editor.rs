@@ -30,7 +30,7 @@ impl CSVEditor
     {
         let attempt_at_reader = csv::Reader::from_path(file_name);
 
-        if Path::new(file_name).exists() && attempt_at_reader.is_ok()
+        return if Path::new(file_name).exists() && attempt_at_reader.is_ok()
         {
             let new_reader = attempt_at_reader.unwrap();
             let starting_position = new_reader.position().clone();
@@ -42,11 +42,9 @@ impl CSVEditor
                 reader_starting_position: starting_position
             };
 
-            return Some(new_editor);
-        }
-        else
-        {
-            return None;
+            Some(new_editor)
+        } else {
+            None
         }
     }
 
